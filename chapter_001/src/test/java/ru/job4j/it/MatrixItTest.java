@@ -73,7 +73,15 @@ public class MatrixItTest {
         MatrixIt it = new MatrixIt(in);
         it.next();
     }
-
+    @Test(expected = NoSuchElementException.class)
+    public void whenElementThenEmpty() {
+        int[][] in = {
+                {1}, {}, {}
+        };
+        MatrixIt it = new MatrixIt(in);
+        assertThat(it.next(), is(1));
+        it.next();
+    }
     @Test
     public void whenMultiHashNext() {
         int[][] in = {
