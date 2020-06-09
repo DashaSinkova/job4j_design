@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleArrayTest {
+
     @Test(expected = IndexOutOfBoundsException.class)
     public void whenAddValue() {
         SimpleArray<Integer> arr = new SimpleArray<>(5);
@@ -19,8 +20,9 @@ public class SimpleArrayTest {
         arr.add(5);
         arr.add(5);
         arr.add(5);
-        assertThat(arr.add(5), is(false));
+        assertThat(arr.get(0), is(5));
     }
+
     @Test
     public void whenSetNewValue() {
         SimpleArray<Integer> arr = new SimpleArray<>(5);
@@ -31,6 +33,7 @@ public class SimpleArrayTest {
         arr.set(2, 35);
         assertThat(arr.get(2), is(35));
     }
+
     @Test
     public void whenRemoveValue() {
         SimpleArray<Integer> arr = new SimpleArray<>(5);
@@ -47,6 +50,7 @@ public class SimpleArrayTest {
         arr.add(15);
         assertThat(arr.get(2), is(15));
     }
+
     @Test
     public void whenGetValue() {
         SimpleArray<Integer> arr = new SimpleArray<>(5);
@@ -54,6 +58,7 @@ public class SimpleArrayTest {
         arr.add(3);
         assertThat(arr.get(1), is(3));
     }
+
     @Test(expected = NoSuchElementException.class)
     public void whenHasNextElement() {
         SimpleArray<Integer> arr = new SimpleArray<>(5);
@@ -65,6 +70,7 @@ public class SimpleArrayTest {
         assertThat(it.next(), is(3));
         it.next();
     }
+
     @Test(expected = NoSuchElementException.class)
     public void whenNextFromEmpty() {
         SimpleArray<Integer> arr = new SimpleArray<>(5);

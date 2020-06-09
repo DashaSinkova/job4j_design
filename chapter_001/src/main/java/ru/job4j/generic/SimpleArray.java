@@ -5,51 +5,37 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimpleArray<T> {
+
     private int position = 0;
     private T[] arr;
+
     public SimpleArray(int length) {
         arr = (T[]) new Object[length];
     }
-    public boolean add(T model) {
-        boolean res = false;
-        if (Objects.checkIndex(position, arr.length) == position) {
+
+    public void add(T model) {
             arr[position++] = model;
-            res = true;
-        }
-        return res;
     }
 
-    public boolean set(int index, T model) {
-        boolean res = false;
-        if (Objects.checkIndex(index, arr.length) == index) {
+    public void set(int index, T model) {
+        Objects.checkIndex(index, position);
             arr[index] = model;
-            res = true;
-        }
-        return res;
     }
-    public boolean remove(int index) {
-        boolean res = false;
-        if (Objects.checkIndex(index, arr.length) == index) {
-            arr[index] = null;
-            res = true;
-            while (index < position) {
-                T val = arr[index + 1];
-                arr[index] = val;
-                arr[index + 1] = null;
-                index++;
-                position--;
-            }
-        }
-        return res;
 
+    public void remove(int index) {
+        Objects.checkIndex(index, position);
+            arr[index] = null;
+            System.arraycopy(arr, index + 1, arr, index, position - 1 - index);
+                position--;
     }
+
     public T get(int index) {
         T res = null;
-        if (Objects.checkIndex(index, arr.length) == index) {
+        Objects.checkIndex(index, position);
             res = arr[index];
-        }
         return res;
     }
+
     public Iterator<T> iterator() {
         return new Iterator<>() {
             private int iteratorPosition = 0;
