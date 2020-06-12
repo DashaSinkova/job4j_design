@@ -7,20 +7,22 @@ import java.util.Objects;
 
 public class SimpleArray<T> implements Iterable<T> {
     private Object[] container = new Object[10];
+    private int position = 0;
     private int modCount = 0;
 
     public T get(int index) {
         T res = null;
-        Objects.checkIndex(index, modCount);
+        Objects.checkIndex(index, position);
         res = (T) container[index];
         return res;
     }
 
     public void add(T model) {
-        if (modCount == container.length) {
+        if (position == container.length) {
             createArray();
         }
-        container[modCount++] = model;
+        container[position++] = model;
+        modCount++;
     }
     private void createArray() {
         Object[] newContainer = new Object[container.length * 2];
@@ -32,21 +34,21 @@ public class SimpleArray<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private final int expectedModCount = modCount;
-            private int position = 0;
+            private int itPosition = 0;
             @Override
             public boolean hasNext() {
-                return expectedModCount == modCount;
+                return itPosition < position;
             }
 
             @Override
             public T next() {
-                if (position >= expectedModCount) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (!hasNext()) {
+                if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return (T) container[position++];
+                return (T) container[itPosition++];
             }
         };
     }
