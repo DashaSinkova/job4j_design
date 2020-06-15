@@ -38,32 +38,37 @@ public class SimpleLinked<T> implements Iterable<T> {
     }
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private int itPosition = 0;
             private final int expectedModCount = modCount;
-            private int delta;
+            Node<T> el = first;
+            boolean flag = true;
             @Override
             public boolean hasNext() {
-                boolean res = size != 0;
-                if (itPosition == size) {
-                    delta = -1;
-                    itPosition = size - 1 - 1;
-                }
-                if (itPosition == 0) {
-                    delta = 1;
-                }
-                return res;
+                return el != null;
             }
 
             @Override
             public T next() {
+
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                T res = findT(itPosition);
-                itPosition += delta;
+                T res = el.item;
+
+                if (el.next == null) {
+                    flag = false;
+                } else if (el.prev == null) {
+                    flag = true;
+                }
+
+                if (flag) {
+                    el = el.next;
+                } else {
+                    el = el.prev;
+                }
+
                 return res;
             }
         };
