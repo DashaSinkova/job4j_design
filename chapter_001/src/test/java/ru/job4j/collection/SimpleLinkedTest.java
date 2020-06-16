@@ -74,12 +74,5 @@ public class SimpleLinkedTest {
         assertThat(iterator.next(), is("third"));
         assertThat(iterator.next(), is("fourth"));
         assertThat(iterator.next(), is("fifth"));
-        assertThat(iterator.next(), is("fourth"));
-        assertThat(iterator.next(), is("third"));
-        assertThat(iterator.next(), is("second"));
-        assertThat(iterator.next(), is("first"));
-        assertThat(iterator.next(), is("second"));
-        assertThat(iterator.next(), is("third"));
     }
-
 }

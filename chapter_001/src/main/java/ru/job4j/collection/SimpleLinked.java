@@ -40,7 +40,6 @@ public class SimpleLinked<T> implements Iterable<T> {
         return new Iterator<T>() {
             private final int expectedModCount = modCount;
             Node<T> el = first;
-            boolean flag = true;
             @Override
             public boolean hasNext() {
                 return el != null;
@@ -56,19 +55,7 @@ public class SimpleLinked<T> implements Iterable<T> {
                     throw new NoSuchElementException();
                 }
                 T res = el.item;
-
-                if (el.next == null) {
-                    flag = false;
-                } else if (el.prev == null) {
-                    flag = true;
-                }
-
-                if (flag) {
-                    el = el.next;
-                } else {
-                    el = el.prev;
-                }
-
+                el = el.next;
                 return res;
             }
         };
