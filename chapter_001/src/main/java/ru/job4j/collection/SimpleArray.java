@@ -10,6 +10,10 @@ public class SimpleArray<T> implements Iterable<T> {
     private int position = 0;
     private int modCount = 0;
 
+    public int getPosition() {
+        return position;
+    }
+
     public T get(int index) {
         T res = null;
         Objects.checkIndex(index, position);
