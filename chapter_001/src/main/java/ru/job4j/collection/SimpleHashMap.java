@@ -5,18 +5,18 @@ import java.util.*;
 public class SimpleHashMap<K, V> implements Iterable<V> {
     private Entry<K, V>[] container = new Entry[8];
     private int modCount = 0;
+    private final double loadFactor = 0.75;
+    private int size = 0;
 
     public boolean insert(K key, V value) {
         boolean res = !contains(key);
         if (res) {
+            increaseArray();
             int hash = hash(key);
             int i = indexFor(hash);
-            if (container[i] != null) {
-                increaseArray();
-                i = indexFor(hash);
-            }
             container[i] = new Entry<>(key, hash, value);
             modCount++;
+            size++;
         }
         return res;
     }
@@ -24,9 +24,20 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
         return container.length;
     }
     private void increaseArray() {
-        Entry<K, V>[] newContainer = new Entry[container.length * 2];
-        System.arraycopy(container, 0, newContainer, 0, container.length - 1);
-        container = newContainer;
+        int capacity = container.length;
+        if ((size / capacity) > loadFactor) {
+            int prevCapacity = capacity;
+            capacity = capacity << 1;
+            Entry<K, V>[] newContainer = new Entry[capacity];
+            for (int i = 0; i < prevCapacity; i++) {
+                if (container[i] != null) {
+                    int hash = hash(container[i].getKey());
+                    int index = indexFor(hash);
+                    newContainer[index] = new Entry<>(container[i].getKey(), hash, container[i].getValue());
+                }
+            }
+            container = newContainer;
+        }
     }
 
     public V get(K key) {
@@ -58,10 +69,11 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     public boolean delete(K key) {
         boolean res = false;
         int i = indexFor(hash(key));
-        if (container[i] != null) {
+        if (container[i] != null && Objects.equals(container[i].getKey(), key)) {
             res = true;
             container[i] = null;
             modCount++;
+            size--;
         }
         return res;
     }
