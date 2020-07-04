@@ -43,7 +43,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     public V get(K key) {
         V res = null;
         int i = indexFor(hash(key));
-        if (container[i] != null && container[i].getKey().equals(key)) {
+        if (container[i] != null && Objects.equals(container[i].getKey(), key)) {
             res = container[i].getValue();
         }
         return res;
@@ -60,7 +60,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     private boolean contains(K key) {
         boolean res = false;
         int i = indexFor(hash(key));
-        if (container[i] != null && container[i].getKey().equals(key)) {
+        if (container[i] != null && Objects.equals(container[i].getKey(), key)) {
             res = true;
         }
         return res;
@@ -69,7 +69,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     public boolean delete(K key) {
         boolean res = false;
         int i = indexFor(hash(key));
-        if (container[i] != null && container[i].getKey().equals(key)) {
+        if (container[i] != null && Objects.equals(container[i].getKey(), key)) {
             res = true;
             container[i] = null;
             modCount++;
