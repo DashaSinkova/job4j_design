@@ -20,6 +20,24 @@ public class TreeTest {
         );
     }
     @Test
+    public void whenTreeIsBinary() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(2, 3);
+        tree.add(2, 4);
+        tree.add(4, 5);
+        assertThat(tree.isBinary(), is(true));
+    }
+    @Test
+    public void whenTreeIsNotBinary() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(2, 3);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        assertThat(tree.isBinary(), is(false));
+    }
+    @Test
     public void whenAddNull() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, null);

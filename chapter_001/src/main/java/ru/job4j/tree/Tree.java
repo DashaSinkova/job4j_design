@@ -38,4 +38,19 @@ public class Tree<E> implements SimpleTree<E> {
         }
         return res;
     }
+
+    public boolean isBinary() {
+        boolean res = true;
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(root);
+        while (!data.isEmpty()) {
+            Node<E> node = data.poll();
+            if (node.children.size() > 2) {
+                res = false;
+                break;
+            }
+            data.addAll(node.children);
+        }
+        return res;
+    }
 }
