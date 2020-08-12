@@ -13,12 +13,13 @@ public class Config {
         this.path = path;
     }
     public void load() {
-        String[] strArr = toString().split(System.lineSeparator());
-        for (String str : strArr) {
-            if (str != "" & str.contains("=")) {
-                String[] res = str.split("=");
+        try (BufferedReader read = new BufferedReader(new FileReader(path))) {
+            read.lines().filter(el -> !el.equals("") & !el.contains("#")).forEach(el -> {
+                String[] res = el.split("=");
                 values.put(res[0], res[1]);
-            }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     public String value(String key) {
