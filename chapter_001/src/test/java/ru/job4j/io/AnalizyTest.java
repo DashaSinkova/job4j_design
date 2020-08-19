@@ -14,7 +14,7 @@ public class AnalizyTest {
     public void whenGetDateServerUnavailable() {
         Analizy analizy = new Analizy();
         analizy.unavailable("server.log", "res.log");
-        try (BufferedReader reader = new BufferedReader(new FileReader("res.log"))){
+        try (BufferedReader reader = new BufferedReader(new FileReader("res.log"))) {
             List<String> res = new ArrayList<>();
             reader.lines().forEach(res :: add);
             assertThat(res.toString(), is("[10:58:01;10:59:01;, 11:01:02;11:02:02;]"));

@@ -1,42 +1,36 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class Analizy {
+    boolean flag = false;
+    public static void main(String[] args) {
+        new Analizy().unavailable("server.log", "res.log");
+    }
     public void unavailable(String source, String target) {
-        List<String> lines = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            read.lines().forEach(lines :: add);
-            System.out.println(lines.toString());
+            read.lines().forEach(el -> {
+                if (el.contains("400") || el.contains("500")) {
+                    if (!flag) {
+                        stringBuilder.append(el.split(" ")[1] + ";");
+                        flag = true;
+                    }
+                } else {
+                    if (flag) {
+                        stringBuilder.append(el.split(" ")[1] + ";" + System.lineSeparator());
+                        flag = false;
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
         try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
-            String res = "";
-            boolean flag = false;
-           for (String str : lines) {
-               if (str.contains("400") || str.contains("500")) {
-                   if (!flag) {
-                       res += str.split(" ")[1] + ";";
-                       flag = true;
-                   }
-               } else {
-                   if (flag == true) {
-                       res += str.split(" ")[1] + ";";
-                       flag = false;
-                       out.write(res + System.lineSeparator());
-                       res = "";
-                   }
-               }
-           }
+           out.write(stringBuilder.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        new Analizy().unavailable("server.log", "res.log");
     }
 }
