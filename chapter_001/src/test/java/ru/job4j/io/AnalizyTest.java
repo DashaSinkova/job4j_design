@@ -1,15 +1,19 @@
 package ru.job4j.io;
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.*;
-import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AnalizyTest {
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
     @Test
     public void whenGetDateServerUnavailable() {
         Analizy analizy = new Analizy();
@@ -21,6 +25,20 @@ public class AnalizyTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @Test
+    public void whenUseTemporaryFolder() throws IOException {
+        File source = folder.newFile("source.txt");
+        File target = folder.newFile("target.txt");
+        try (PrintWriter in = new PrintWriter(source)) {
+            in.write("200 10:56:01\n" + "200 10:57:01\n" + "400 10:58:01\n" + "200 10:59:01\n" + "500 11:01:02\n" + "200 11:02:02");
+        }
+        new Analizy().unavailable(source.getAbsolutePath(), target.getAbsolutePath());
+        StringBuilder rsl = new StringBuilder();
+        try (BufferedReader out = new BufferedReader(new FileReader(target))) {
+            out.lines().forEach(line -> rsl.append(line + System.lineSeparator()));
+        }
+        assertThat(rsl.toString(), is("10:58:01;10:59:01;" + System.lineSeparator() + "11:01:02;11:02:02;" + System.lineSeparator()));
     }
 
 }
