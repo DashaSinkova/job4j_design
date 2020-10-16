@@ -12,9 +12,6 @@ public class ArgsName {
        }
         return values.get(key);
     }
-    public Map<String, String> getMap() {
-        return values;
-    }
 
     private void parse(String[] args) {
         for (String str : args) {
