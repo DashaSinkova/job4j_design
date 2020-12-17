@@ -15,22 +15,21 @@ public class EchoServer {
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
                     String str;
-                    Boolean flag = true;
+                    String word = "What";
                     while (!(str = in.readLine()).isEmpty()) {
                         System.out.println(str);
-                        if (str.contains("Bye")) {
-                            flag = false;
+                        if (str.contains("Exit")) {
+                            socket.close();
+                            break;
+                        } else if (str.contains("Hello")) {
+                            word = "Hello";
                         }
                     }
-                    if (flag) {
-                        out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
-                    } else {
-                        out.write("HTTP/1.1 521 Server Is Down\r\n\\".getBytes());
-                        socket.close();
-                        break;
+                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                    out.write(word.getBytes());
                     }
                 }
             }
         }
     }
-}
+
