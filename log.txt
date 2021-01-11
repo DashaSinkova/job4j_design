@@ -7,4 +7,18 @@
 0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /tomcat.css HTTP/1.1" 200 5931
 0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /bg-nav.png HTTP/1.1" 200 1401
 0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /bg-button.png HTTP/1.1" 200 713
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /bg-middle.png HTTP/1.1" 200 1918
+0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /bg-middle.png HTTP/1.1" 200 1918C:\projects\job4j_design\404.txt
+C:\projects\job4j_design\botanswers.txt
+C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.it.ArrayItTest.txt
+C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.it.BackwardArrayItTest.txt
+C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.it.ConverterTest.txt
+C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.it.EvenItTest.txt
+C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.it.MatrixItTest.txt
+C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.it.ru.job4j.generic.SimpleArrayTest.txt
+C:\projects\job4j_design\even.txt
+C:\projects\job4j_design\input.txt
+C:\projects\job4j_design\log.txt
+C:\projects\job4j_design\path.txt
+C:\projects\job4j_design\result.txt
+C:\projects\job4j_design\target\surefire-reports\ru.job4j.AppTest.txt
+C:\projects\job4j_design\text.txt
