@@ -1,0 +1,33 @@
+insert into departments(name) values ('Бухгалтерия');
+insert into departments(name) values ('Секретариат');
+insert into departments(name) values ('Финансовый отдел');
+insert into departments(name) values ('Отдел персонала');
+insert into departments(name) values ('Отдел разработки');
+insert into departments(name) values ('Отдел аналитики');
+
+insert into employes(name, department_id) values ('Дарья Синькова', 35);
+insert into employes(name, department_id) values ('Шмидова Вера', 35);
+insert into employes(name, department_id) values ('Шмидова Лера', 35);
+insert into employes(name, department_id) values ('Иванов Сергей', 33);
+insert into employes(name, department_id) values ('Ильин Владислав', 35);
+insert into employes(name, department_id) values ('Смойлов Игорь', 32);
+insert into employes(name, department_id) values ('Рюшкин Андрей', 31);
+insert into employes(name, department_id) values ('Глебова Эльмира', 34);
+insert into employes(name, department_id) values ('Войнов Василь', 33);
+insert into employes(name, department_id) values ('Романов Дмитрий', 34);
+insert into employes(name, department_id) values ('Ильющенко Янис', 32);
+insert into employes(name, department_id) values ('Каримов Руслан', null);
+insert into employes(name, department_id) values ('Райцева Вера', null);
+
+insert into teens(name, gender) values ('Даша', 'ж');
+insert into teens(name, gender) values (' Андрей', 'м');
+insert into teens(name, gender) values ('Мария', 'ж');
+insert into teens(name, gender) values ('София', 'ж');
+insert into teens(name, gender) values ('Андрей', 'м');
+insert into teens(name, gender) values ('Ярослав', 'м');
+insert into teens(name, gender) values ('Дмитрий', 'м');
+insert into teens(name, gender) values ('Антон', 'м');
+insert into teens(name, gender) values ('Олег', 'м');
+insert into teens(name, gender) values ('Екатерина', 'ж');
+insert into teens(name, gender) values ('Алиса', 'ж');
+insert into teens(name, gender) values ('Ольга', 'ж');
