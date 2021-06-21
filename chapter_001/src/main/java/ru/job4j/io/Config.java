@@ -23,7 +23,7 @@ public class Config {
         }
     }
     public String value(String key) {
-        System.out.println(values.toString());
+        //System.out.println(values.toString());
         return values.get(key);
     }
 
