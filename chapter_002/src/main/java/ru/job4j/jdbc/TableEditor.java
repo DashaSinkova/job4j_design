@@ -34,8 +34,7 @@ public class TableEditor implements AutoCloseable {
 
     private boolean executeRequest(String sql) {
         boolean res = false;
-       try {
-           Statement statement = connection.createStatement();
+       try (Statement statement = connection.createStatement()) {
            statement.execute(sql);
            res = true;
        } catch (Exception e) {
@@ -69,16 +68,26 @@ public class TableEditor implements AutoCloseable {
     }
 
     public String getScheme(String tableName) throws SQLException {
+//        StringBuilder scheme = new StringBuilder();
+//        DatabaseMetaData metaData = connection.getMetaData();
+//        try (ResultSet columns = metaData.getColumns(null, null, tableName, null)) {
+//            scheme.append(String.format("%-15s %-15s%n", "column", "type"));
+//            while (columns.next()) {
+//                scheme.append(String.format("%-15s %-15s%n",
+//                        columns.getString("COLUMN_NAME"),
+//                        columns.getString("TYPE_NAME")));
+//            }
+//        }
+//        System.out.println(scheme);
+//        return scheme.toString();
         StringBuilder scheme = new StringBuilder();
-        DatabaseMetaData metaData = connection.getMetaData();
-        try (ResultSet columns = metaData.getColumns(null, null, tableName, null)) {
-            scheme.append(String.format("%-15s %-15s%n", "column", "type"));
-            while (columns.next()) {
-                scheme.append(String.format("%-15s %-15s%n",
-                        columns.getString("COLUMN_NAME"),
-                        columns.getString("TYPE_NAME")));
-            }
+        scheme.append(String.format("%-15s %-15s%n", "column", "type"));
+        ResultSet rs = connection.createStatement().executeQuery("select * from "+tableName);
+        ResultSetMetaData rsMetaData = rs.getMetaData();
+        for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
+            scheme.append(String.format("%-15s %-15s%n", rsMetaData.getColumnName(i), rsMetaData.getColumnTypeName(i)));
         }
+        System.out.println(scheme);
         return scheme.toString();
     }
 
@@ -87,5 +96,23 @@ public class TableEditor implements AutoCloseable {
         if (connection != null) {
             connection.close();
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("C:\\projects\\job4j_design\\chapter_001\\app.properties"));
+        TableEditor tableEditor = new TableEditor(properties);
+        tableEditor.createTable("Seasons");
+        tableEditor.getScheme("Seasons");
+        tableEditor.addColumn("Seasons", "name", "varchar(255)");
+        tableEditor.getScheme("Seasons");
+        tableEditor.addColumn("Seasons", "temperature", "decimal");
+        tableEditor.getScheme("Seasons");
+        tableEditor.renameColumn("Seasons", "name", "title");
+        tableEditor.getScheme("Seasons");
+        tableEditor.dropColumn("Seasons", "temperature");
+        tableEditor.getScheme("Seasons");
+        tableEditor.dropTable("Seasons");
+        tableEditor.close();
     }
 }
