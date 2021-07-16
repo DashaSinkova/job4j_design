@@ -17,6 +17,7 @@ public class SqlRuParse {
             System.out.println(href.text());
             System.out.println(doc.getElementsByAttribute("style").select(".altCol").get(count).text());
             count ++;
+            //System.out.println(td.parent().child(5).text()); второй вариант получения даты
             System.out.println();
         }
     }
