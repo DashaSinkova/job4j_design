@@ -10,7 +10,7 @@ public class SuggestServiceTest {
     @Test
     public void whenInsertThreeLettersCompanies() {
         SuggestService service = new SuggestService(Arrays.asList("Яндекс", "ЯндексТакси",
-                "ЯндексЛавка","ЯндексЕда", "Jetbrains",
+                "ЯндексЛавка", "ЯндексЕда", "Jetbrains",
                 "MailRu", "T-Systems", "EPAM"));
         List<String> result = Arrays.asList("Яндекс", "ЯндексТакси",
                 "ЯндексЛавка");
@@ -19,7 +19,7 @@ public class SuggestServiceTest {
     @Test
     public void whenInsertOneLettersCompanies() {
         SuggestService service = new SuggestService(Arrays.asList("Яндекс", "ЯндексТакси",
-                "ЯндексЛавка","ЯндексЕда", "Jetbrains",
+                "ЯндексЛавка", "ЯндексЕда", "Jetbrains",
                 "MailRu", "T-Systems", "EPAM"));
         List<String> result = Arrays.asList("Jetbrains");
         assertThat(service.suggest("J", 3), is(result));

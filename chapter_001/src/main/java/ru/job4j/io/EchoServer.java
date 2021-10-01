@@ -19,7 +19,8 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
                     String str;
                     String word = "What";
-                    while (!(str = in.readLine()).isEmpty()) {
+                    str = in.readLine();
+                    while (!str.isEmpty()) {
                         System.out.println(str);
                         if (str.contains("Exit")) {
                             socket.close();
