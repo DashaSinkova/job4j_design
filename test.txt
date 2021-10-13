@@ -3,7 +3,7 @@ C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.it.MatrixI
 C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.it.MatrixItTest.txt
 C:\projects\job4j_design\404.txt
 C:\projects\job4j_design\botanswers.txt
-C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.collection.AnalizeTest.txt
+C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.collection.AnalyzeTest.txt
 C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.collection.ArticleTest.txt
 C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.collection.DeleteFirstLinkedTest.txt
 C:\projects\job4j_design\chapter_001\target\surefire-reports\ru.job4j.collection.ForwardLinkedTest.txt

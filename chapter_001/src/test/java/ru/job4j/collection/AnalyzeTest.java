@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class AnalizeTest {
+public class AnalyzeTest {
     @Test
     public void whenPreviousLargeThenCurrent() {
         List<Analize.User> previous =  List.of(new Analize.User(1, "Dasha"),

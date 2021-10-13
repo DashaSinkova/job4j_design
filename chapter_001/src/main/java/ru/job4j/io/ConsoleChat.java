@@ -48,7 +48,6 @@ public class ConsoleChat {
                 isBotAnswer = true;
             }
             if (isBotAnswer) {
-            //ищем ответ из другого файла, прибавляем к строке
                 String botAnswer = answers.get((int) (answers.size() * Math.random()));
                 line = "Пользователь: " + line + System.lineSeparator() + "Бот: " + botAnswer;
                 System.out.println("Бот: " + botAnswer);
@@ -56,7 +55,6 @@ public class ConsoleChat {
             } else {
                 line = "Пользователь: " + line;
             }
-            //записываем строку в итоговый файл
             dialog.add(line);
             System.out.print("Пользователь: ");
             line = scanner.nextLine();

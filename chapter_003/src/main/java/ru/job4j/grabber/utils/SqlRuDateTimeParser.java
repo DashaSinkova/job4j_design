@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class SqlRuDateTimeParser implements DateTimeParser{
+public class SqlRuDateTimeParser implements DateTimeParser {
     @Override
     public LocalDateTime parse(String parse) {
         String date = parse.split(",")[0];

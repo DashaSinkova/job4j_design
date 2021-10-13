@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class PrepareStatementDemo {
     private Connection connection;
-    public PrepareStatementDemo() throws Exception{
+    public PrepareStatementDemo() throws Exception {
         initConnection();
     }
     public void initConnection() throws Exception {
@@ -26,7 +26,7 @@ public class PrepareStatementDemo {
             statement.setString(1, city.getName());
             statement.setInt(2, city.getPopulation());
             statement.execute();
-            try(ResultSet generatedKeys = statement.getGeneratedKeys()) {
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 while (generatedKeys.next()) {
                     city.setId(generatedKeys.getInt(1));
                 }
@@ -38,7 +38,7 @@ public class PrepareStatementDemo {
     }
     public boolean update(City city) {
         boolean res = false;
-        try(PreparedStatement statement = connection.prepareStatement("update cities set name = ?, population = ? where id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("update cities set name = ?, population = ? where id = ?")) {
             statement.setString(1, city.getName());
             statement.setInt(2, city.getPopulation());
             statement.setInt(3, city.getId());
@@ -50,7 +50,7 @@ public class PrepareStatementDemo {
     }
     public boolean delete(int id) {
         boolean res = false;
-        try(PreparedStatement statement = connection.prepareStatement("delete from cities where id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("delete from cities where id = ?")) {
             statement.setInt(1, id);
             res = statement.executeUpdate() > 0;
         } catch (Exception e) {
@@ -60,8 +60,8 @@ public class PrepareStatementDemo {
     }
     public List<City> findAll() {
         List<City> cities = new ArrayList<>();
-        try(PreparedStatement statement = connection.prepareStatement("select * from cities")) {
-            try(ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = connection.prepareStatement("select * from cities")) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     cities.add(new City(resultSet.getInt("id"),
                             resultSet.getString("name"),

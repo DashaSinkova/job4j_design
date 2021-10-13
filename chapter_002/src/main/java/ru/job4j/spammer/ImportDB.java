@@ -42,10 +42,10 @@ public class ImportDB {
 
     public void save(List<User> users) throws SQLException {
             try (Statement st = cn.createStatement()) {
-                st.execute("create table if not exists users(" +
-                        "id serial primary key," +
-                        "name text," +
-                        "email text);");
+                st.execute("create table if not exists users("
+                        + "id serial primary key,"
+                        + "name text,"
+                        + "email text);");
             }
             for (User user : users) {
                 try (PreparedStatement ps = cn.prepareStatement("insert into users(name, email) values (?, ?)")) {

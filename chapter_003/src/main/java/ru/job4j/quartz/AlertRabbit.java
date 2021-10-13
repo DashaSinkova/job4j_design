@@ -22,11 +22,11 @@ public class AlertRabbit {
     public static void main(String[] args) {
         try {
             Properties properties = new Properties();
-            try(FileInputStream in = new FileInputStream("C:\\projects\\job4j_design\\chapter_003\\src\\main\\resources\\rabbit.properties")) {
+            try (FileInputStream in = new FileInputStream("C:\\projects\\job4j_design\\chapter_003\\src\\main\\resources\\rabbit.properties")) {
                 properties.load(in);
             }
             String period = properties.getProperty("rabbit.interval");
-            try(Connection cn = initConnection(properties)) {
+            try (Connection cn = initConnection(properties)) {
                 JobDataMap data = new JobDataMap();
                 data.put("Connection", cn);
                 JobDetail job = JobBuilder.newJob(Rabbit.class).usingJobData(data).build();
@@ -57,7 +57,7 @@ public class AlertRabbit {
 
         }
         private void insert(Connection cn) {
-            try(PreparedStatement statement = cn.prepareStatement("insert into rabbit(created_date) values (?)")) {
+            try (PreparedStatement statement = cn.prepareStatement("insert into rabbit(created_date) values (?)")) {
                 statement.setLong(1, System.currentTimeMillis());
                 statement.execute();
             } catch (Exception e) {

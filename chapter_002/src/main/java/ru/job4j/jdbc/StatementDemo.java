@@ -1,11 +1,12 @@
 package ru.job4j.jdbc;
 
+import ru.job4j.io.Config;
+
 import java.sql.*;
 
-import ru.job4j.io.Config;
 public class StatementDemo {
-    private static Connection getConnection() throws Exception{
-        Class.forName("org.postgresql.Driver"); //зарегистрировать драйвер
+    private static Connection getConnection() throws Exception {
+        Class.forName("org.postgresql.Driver");
         Config config = new Config("C:\\projects\\job4j_design\\chapter_001\\app.properties");
         config.load();
         Class.forName("org.postgresql.Driver");
@@ -15,9 +16,9 @@ public class StatementDemo {
         return DriverManager.getConnection(url, login, password);
     }
 
-    public static void main(String[] args) throws Exception{
-        try(Connection connection = getConnection()) {
-            try(Statement statement = connection.createStatement()) {
+    public static void main(String[] args) throws Exception {
+        try (Connection connection = getConnection()) {
+            try (Statement statement = connection.createStatement()) {
                 String sql = String.format(
                         "create table if not exists demo_table(%s, %s);",
                         "id serial primary key",
@@ -32,7 +33,7 @@ public class StatementDemo {
     public static String getTableScheme(Connection connection, String tableName) throws Exception {
         StringBuilder scheme = new StringBuilder();
         DatabaseMetaData metaData = connection.getMetaData();
-        try(ResultSet columns = metaData.getColumns(null, null, tableName, null)) {
+        try (ResultSet columns = metaData.getColumns(null, null, tableName, null)) {
             scheme.append(String.format("%-15s %-15s%n", "column", "type"));
             while (columns.next()) {
                 scheme.append(String.format("%-15s %-15s%n",
