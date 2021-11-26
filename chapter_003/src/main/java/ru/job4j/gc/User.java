@@ -9,6 +9,10 @@ public class User {
         this.name = name;
     }
 
+    public User() {
+
+    }
+
     @Override
     protected void finalize() throws Throwable {
         System.out.printf("Removed %d %s%n", id, name);
