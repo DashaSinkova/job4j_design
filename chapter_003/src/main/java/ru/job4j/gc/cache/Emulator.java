@@ -1,7 +1,6 @@
 package ru.job4j.gc.cache;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,9 +18,11 @@ import java.util.Scanner;
  * - получить содержимое файла из кэша
  */
 public class Emulator {
-    static Boolean create = false;
-    static DirFileCache cache = null;
-    public static void main(String[] args) throws IOException {
+
+    private static Boolean create = false;
+    private static DirFileCache cache = null;
+
+    public static void main(String[] args) {
         for (;;) {
             File dir = new File("C:\\Projects\\job4j_design");
             File[] dirs = getDirs(dir);
@@ -36,7 +37,7 @@ public class Emulator {
             }
         }
 
-    private static void choseFile(File dir) throws IOException {
+    private static void choseFile(File dir)  {
         List<String> files = getFiles(dir);
         System.out.println(files);
         System.out.println("Choose a file:");
@@ -45,7 +46,7 @@ public class Emulator {
             cacheFile(userInput, dir);
         }
     }
-    private static void cacheFile(String file, File dir) throws IOException {
+    private static void cacheFile(String file, File dir) {
         if (!create) {
             cache = new DirFileCache(dir.toString());
             create = true;
