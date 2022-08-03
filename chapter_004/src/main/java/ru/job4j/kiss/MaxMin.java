@@ -6,6 +6,9 @@ import java.util.List;
 
 public class MaxMin {
     public <T> T sort(List<T> value, Comparator<T> comparator) {
+        if (value.isEmpty()) {
+            return null;
+        }
         T res = value.get(0);
         for (T el : value) {
             if (comparator.compare(el, res) > 0) {
@@ -16,6 +19,7 @@ public class MaxMin {
     }
 
     public <T> T max(List<T> value, Comparator<T> comparator) {
+
         return sort(value, comparator);
     }
 

@@ -36,5 +36,13 @@ public class MaxMinTest {
         MaxMin maxMin = new MaxMin();
         assertThat(maxMin.min(tickets, Comparator.comparing(Ticket::getId))).isEqualTo(min);
     }
+
+    @Test
+    public void whenListIsNull() {
+        tickets.clear();
+        MaxMin maxMin = new MaxMin();
+        assertThat(maxMin.min(tickets, Comparator.comparing(Ticket::getId))).isEqualTo(null);
+        assertThat(maxMin.max(tickets, Comparator.comparing(Ticket::getId))).isEqualTo(null);
+    }
 }
 
