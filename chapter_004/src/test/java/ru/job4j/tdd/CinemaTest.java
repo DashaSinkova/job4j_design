@@ -17,6 +17,7 @@ public class CinemaTest {
         Calendar date = Calendar.getInstance();
         Ticket ticket = cinema.buy(account, 1, 1, date);
         assertThat(ticket).isEqualTo(new Ticket3D());
+        assertThrows(IllegalArgumentException.class, () -> cinema.buy(account, 1, 1, date));
     }
 
     @Test
@@ -35,15 +36,6 @@ public class CinemaTest {
         sessions.add(new Session3D());
         assertThat(sessions.containsAll(cinema.find(session -> true))).isTrue();
     }
-
-    @Test
-    public void whenTicketHasBought() {
-        List<Ticket> tickets = new ArrayList<>();
-        Ticket ticket = new Ticket3D();
-        Session session = new Session3D(tickets);
-        assertThat(((Session3D) session).getTickets().contains(ticket)).isFalse();
-    }
-
 
     @Test
     public void whenInvalidPlace() {
