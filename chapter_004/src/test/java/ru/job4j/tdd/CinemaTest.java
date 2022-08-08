@@ -17,6 +17,14 @@ public class CinemaTest {
         Calendar date = Calendar.getInstance();
         Ticket ticket = cinema.buy(account, 1, 1, date);
         assertThat(ticket).isEqualTo(new Ticket3D());
+    }
+
+    @Test
+    public void whenDuplicate() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        cinema.buy(account, 1, 1, date);
         assertThrows(IllegalArgumentException.class, () -> cinema.buy(account, 1, 1, date));
     }
 
