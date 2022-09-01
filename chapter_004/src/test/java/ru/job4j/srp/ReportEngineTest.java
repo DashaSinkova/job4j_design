@@ -3,9 +3,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
-import java.util.function.Predicate;
 
-import static ru.job4j.srp.ReportEngine.DATE_FORMAT;
+import static ru.job4j.srp.StandartReport.DATE_FORMAT;
 
 public class ReportEngineTest {
 
@@ -15,7 +14,7 @@ public class ReportEngineTest {
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
-        Report engine = new ReportEngine(store);
+        Report report = new StandartReport(store);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())
@@ -24,7 +23,7 @@ public class ReportEngineTest {
                 .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
                 .append(worker.getSalary()).append(";")
                 .append(System.lineSeparator());
-        assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
+        assertThat(report.generate(em -> true)).isEqualTo(expect.toString());
     }
 
     @Test
@@ -33,35 +32,35 @@ public class ReportEngineTest {
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
-        ReportEngine engine = new ReportEngine(store);
+        HtmlReport report = new HtmlReport(store);
         StringBuilder expect = new StringBuilder()
                 .append("<!DOCTYPE html>")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("<html lang=\"en-us\">")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("<head>")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("<meta charset=\"utf-8\">")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("<meta name=\"viewport\" content=\"width=device-width\">")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("<title>Report</title>")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("</head>")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("<body>")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("Name; Hired; Fired; Salary;")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append(worker.getName()).append(";")
                 .append(DATE_FORMAT.format(worker.getHired().getTime())).append(";")
                 .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
                 .append(worker.getSalary()).append(";")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("</body>")
-                .append(System.lineSeparator())
+                .append(HtmlReport.DELIMITER)
                 .append("</html>");
-        assertThat(engine.htmlGenerate(el -> true)).isEqualTo(expect.toString());
+        assertThat(report.generateHTML(el -> true)).isEqualTo(expect.toString());
     }
     @Test
     public void whenGeneratedForCounting() {
@@ -69,7 +68,7 @@ public class ReportEngineTest {
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
-        ReportEngine engine = new ReportEngine(store);
+        Report report = new AccountingReport(store);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary(USD);")
                 .append(System.lineSeparator())
@@ -78,7 +77,7 @@ public class ReportEngineTest {
                 .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
                 .append(worker.getSalary() / 60).append(";")
                 .append(System.lineSeparator());
-        assertThat(engine.generateForCounting(em -> true)).isEqualTo(expect.toString());
+        assertThat(report.generate(em -> true)).isEqualTo(expect.toString());
     }
     @Test
     public void whenGenerateForHR() {
@@ -90,7 +89,7 @@ public class ReportEngineTest {
         store.add(worker);
         store.add(worker1);
         store.add(worker2);
-        ReportEngine engine = new ReportEngine(store);
+        Report report = new HrReport(store);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Salary;")
                 .append(System.lineSeparator())
@@ -106,6 +105,6 @@ public class ReportEngineTest {
                 .append(worker.getSalary()).append(";")
                 .append(System.lineSeparator());
 
-        assertThat(engine.generateForHR(em -> true)).isEqualTo(expect.toString());
+        assertThat(report.generate(em -> true)).isEqualTo(expect.toString());
     }
 }
