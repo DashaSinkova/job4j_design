@@ -75,7 +75,7 @@ public class ReportEngineTest {
                 .append(worker.getName()).append(";")
                 .append(DATE_FORMAT.format(worker.getHired().getTime())).append(";")
                 .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
-                .append(worker.getSalary() / 60).append(";")
+                .append(worker.getSalary() / AccountingReport.EXCHANGE_RATES).append(";")
                 .append(System.lineSeparator());
         assertThat(report.generate(em -> true)).isEqualTo(expect.toString());
     }
