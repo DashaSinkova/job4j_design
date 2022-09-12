@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<client isService="true" name="Job4j" applicationNumber="134">
+    <engineer name="Dasha" phone="7-000-000-00-00"/>
+    <applications>
+        <application>App1</application>
+        <application>App2</application>
+    </applications>
+</client>
