@@ -28,6 +28,26 @@ public class CLient {
         this.application = application;
     }
 
+    public boolean isService() {
+        return isService;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getApplicationNumber() {
+        return applicationNumber;
+    }
+
+    public Engineer getEngineer() {
+        return engineer;
+    }
+
+    public String[] getApplication() {
+        return application;
+    }
+
     @Override
     public String toString() {
         return "CLient{"

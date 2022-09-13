@@ -15,6 +15,14 @@ public class Engineer {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     public Engineer(String name, String phone) {
         this.name = name;
         this.phone = phone;
