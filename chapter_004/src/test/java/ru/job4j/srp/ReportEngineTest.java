@@ -1,22 +1,16 @@
 package ru.job4j.srp;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.*;
 import java.util.Calendar;
-import java.util.List;
+
 
 import static ru.job4j.srp.StandartReport.DATE_FORMAT;
 
 public class ReportEngineTest {
 
     @Test
-    public void whenOldGenerated() throws JAXBException {
+    public void whenOldGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -70,7 +64,7 @@ public class ReportEngineTest {
         assertThat(report.generateHTML(el -> true)).isEqualTo(expect.toString());
     }
     @Test
-    public void whenGeneratedForCounting() throws JAXBException {
+    public void whenGeneratedForCounting() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -87,7 +81,7 @@ public class ReportEngineTest {
         assertThat(report.generate(em -> true)).isEqualTo(expect.toString());
     }
     @Test
-    public void whenGenerateForHR() throws JAXBException {
+    public void whenGenerateForHR() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -116,32 +110,41 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenGenerateXMLReport() throws JAXBException {
+    public void whenGenerateXMLReport() {
         MemStore store = new MemStore();
         Calendar now = new Calendar.Builder().setDate(2000, 01, 01).setTimeOfDay(9, 26, 00).build();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report report = new XMLReport(store);
-        JAXBContext context = JAXBContext.newInstance(Employees.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        String xml = report.generate(el -> true);
-        List<Employee> emp;
-        try (StringReader reader = new StringReader(xml)) {
-           Employees employees = (Employees) unmarshaller.unmarshal(reader);
-           emp = employees.getEmployee();
-        }
-        assertThat(emp.get(0)).isEqualTo(worker);
+        String res = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+                + XMLReport.DELIMITER
+                + "<employees>"
+                + XMLReport.DELIMITER
+                + "    <employee>"
+                + XMLReport.DELIMITER
+                + "        <fired>2000-02-01T09:26:00+03:00</fired>"
+                + XMLReport.DELIMITER
+                + "        <hired>2000-02-01T09:26:00+03:00</hired>"
+                + XMLReport.DELIMITER
+                + "        <name>Ivan</name>"
+                + XMLReport.DELIMITER
+                + "        <salary>100.0</salary>"
+                + XMLReport.DELIMITER
+                + "    </employee>"
+                + XMLReport.DELIMITER
+                + "</employees>"
+                + XMLReport.DELIMITER;
+
+        assertThat(report.generate(el -> true)).isEqualTo(res);
     }
     @Test
-    public void whenGenerateJsonReport() throws JAXBException {
+    public void whenGenerateJsonReport() {
         MemStore store = new MemStore();
         Calendar now = new Calendar.Builder().setDate(2000, 01, 01).setTimeOfDay(9, 26, 00).build();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report report = new JSONReport(store);
-        String str = report.generate(el -> true);
-        var gson = new GsonBuilder().create();
-        Employees employeesFromJson = gson.fromJson(str, Employees.class);
-        assertThat(employeesFromJson.getEmployee().get(0)).isEqualTo(worker);
+        String res = "{\"employee\":[{\"name\":\"Ivan\",\"hired\":{\"year\":2000,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":9,\"minute\":26,\"second\":0},\"fired\":{\"year\":2000,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":9,\"minute\":26,\"second\":0},\"salary\":100.0}]}";
+        assertThat(report.generate(el -> true)).isEqualTo(res);
     }
 }
