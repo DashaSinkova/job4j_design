@@ -13,7 +13,7 @@ public class JSONReport implements Report {
 
     public JSONReport(Store store) {
         this.store = store;
-        gson = new GsonBuilder().create();
+        gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     @Override

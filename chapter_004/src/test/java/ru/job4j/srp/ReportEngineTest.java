@@ -144,13 +144,31 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report report = new JSONReport(store);
-        String res = "{"
-                + "\"employee\":"
-                + "[{\"name\":\"Ivan\","
-                + "\"hired\":{\"year\":2000,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":9,\"minute\":26,\"second\":0},"
-                + "\"fired\":{\"year\":2000,\"month\":1,\"dayOfMonth\":1,\"hourOfDay\":9,\"minute\":26,\"second\":0},"
-                + "\"salary\":100.0}]"
-                + "}";
+        String res = """
+                {
+                  "employee": [
+                    {
+                      "name": "Ivan",
+                      "hired": {
+                        "year": 2000,
+                        "month": 1,
+                        "dayOfMonth": 1,
+                        "hourOfDay": 9,
+                        "minute": 26,
+                        "second": 0
+                      },
+                      "fired": {
+                        "year": 2000,
+                        "month": 1,
+                        "dayOfMonth": 1,
+                        "hourOfDay": 9,
+                        "minute": 26,
+                        "second": 0
+                      },
+                      "salary": 100.0
+                    }
+                  ]
+                }""";
         assertThat(report.generate(el -> true)).isEqualTo(res);
     }
 }
