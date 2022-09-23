@@ -3,7 +3,7 @@ package ru.job4j.ood.lsp;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-public class Food {
+public abstract class Food {
 
     private String name;
     private Calendar expiryDate;
