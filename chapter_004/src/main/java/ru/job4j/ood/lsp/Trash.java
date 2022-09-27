@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trash implements Store {
-    private final List<Food> products = new ArrayList<>();
+
     private static final int PERCENT = 100;
+    private final List<Food> products = new ArrayList<>();
 
     @Override
     public boolean accept(Food food) {

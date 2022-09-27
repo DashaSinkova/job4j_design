@@ -4,6 +4,7 @@ package ru.job4j.ood.lsp;
 import java.util.List;
 
 public class ControlQuality {
+
     private List<Store> stores;
 
     public ControlQuality(List<Store> stores) {

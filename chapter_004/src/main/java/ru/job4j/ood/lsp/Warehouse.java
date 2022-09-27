@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Warehouse implements Store {
 
-    private final List<Food> products = new ArrayList<>();
     private static final int PERCENT = 25;
+    private final List<Food> products = new ArrayList<>();
 
     @Override
     public boolean accept(Food food) {

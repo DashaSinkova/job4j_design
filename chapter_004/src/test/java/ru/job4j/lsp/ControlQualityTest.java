@@ -21,7 +21,7 @@ public class ControlQualityTest {
                 new Calendar.Builder().setDate(2022, 01, 28).build(),
                 new BigDecimal(1000), 10);
         control.foodDistribution(food);
-        assertThat(warehouse.findAll().get(0)).isEqualTo(food);
+        assertThat(warehouse.findAll().containsAll(List.of(food)));
     }
     @Test
     public void whenAddToShop() {
@@ -34,7 +34,7 @@ public class ControlQualityTest {
                 new Calendar.Builder().setDate(2022, 01, 28).build(),
                 new BigDecimal(1000), 10);
         control.foodDistribution(food);
-        assertThat(shop.findAll().get(0)).isEqualTo(food);
+        assertThat(shop.findAll().containsAll(List.of(food)));
     }
 
     @Test
@@ -48,7 +48,13 @@ public class ControlQualityTest {
                 new Calendar.Builder().setDate(2022, 01, 14).build(),
                 new BigDecimal(1000), 10);
         control.foodDistribution(food);
-        assertThat(shop.findAll().get(0).getPrice()).isEqualTo(new BigDecimal(900));
+
+        assertThat(shop.findAll().containsAll(List.of(
+                new MeatFood("говядина",
+                        new Calendar.Builder().setDate(2021, 12, 25).build(),
+                        new Calendar.Builder().setDate(2022, 01, 14).build(),
+                        new BigDecimal(900), 10)
+        )));
     }
 
     @Test
@@ -62,7 +68,7 @@ public class ControlQualityTest {
                 new Calendar.Builder().setDate(2022, 01, 10).build(),
                 new BigDecimal(1000), 10);
         control.foodDistribution(food);
-        assertThat(trash.findAll().get(0)).isEqualTo(food);
+        assertThat(trash.findAll().containsAll(List.of(food)));
     }
 
     @Test
@@ -95,8 +101,8 @@ public class ControlQualityTest {
         control.foodDistribution(shopFood);
         control.foodDistribution(warehouseFood);
 
-        assertThat(trash.findAll().get(0)).isEqualTo(trashFood);
-        assertThat(shop.findAll().get(0)).isEqualTo(shopFood);
-        assertThat(warehouse.findAll().get(0)).isEqualTo(warehouseFood);
+        assertThat(trash.findAll().containsAll(List.of(trashFood)));
+        assertThat(shop.findAll().containsAll(List.of(shopFood)));
+        assertThat(warehouse.findAll().containsAll(List.of(warehouseFood)));
     }
 }

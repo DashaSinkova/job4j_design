@@ -5,8 +5,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public interface Store {
+
+    Calendar DATE = new Calendar.Builder().setDate(2022, 01, 10).build();
+
     boolean accept(Food food);
-    Calendar DATE = new Calendar.Builder().setDate(2022, 01, 10).build();;
 
     boolean add(Food food);
 
